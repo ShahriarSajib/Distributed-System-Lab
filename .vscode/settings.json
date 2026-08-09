@@ -1,0 +1,7 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/*.jar",
+    "C:/Users/mohmmad/hadoop-3.5.0/share/hadoop/common/*.jar",
+    "C:/Users/mohmmad/hadoop-3.5.0/share/hadoop/common/lib/*.jar"
+  ]
+}
