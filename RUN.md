@@ -1,6 +1,6 @@
 # How to Run (WSL + Hadoop)
 
-This guide has a section for **every program** (40 total). Each section tells you:
+This guide has a section for **every program** (50 total). Each section tells you:
 
 - what the program does
 - which input file it needs
@@ -662,6 +662,152 @@ a.txt   one    1
 a.txt   two    1
 b.txt   three  1
 b.txt   two    1
+```
+
+---
+
+# Part C - More programs (41-50)
+
+## 41. MinTemperature
+
+Minimum temperature per year. Input: `/lab/temp/temp.csv` (`year,temp` per line).
+
+```bash
+hdfs dfs -rm -r -f /lab/mintemp-out
+hadoop jar build/jars/MinTemperature.jar MinTemperature /lab/temp /lab/mintemp-out
+hdfs dfs -cat /lab/mintemp-out/part-r-00000
+```
+
+Expected:
+
+```
+2010  38
+2011  41
+2012  29
+```
+
+## 42. TotalSalaryPerDept
+
+Total salary per department. Input: `/lab/salary/salary.csv`.
+
+```bash
+hdfs dfs -rm -r -f /lab/totsal-out
+hadoop jar build/jars/TotalSalaryPerDept.jar TotalSalaryPerDept /lab/salary /lab/totsal-out
+hdfs dfs -cat /lab/totsal-out/part-r-00000
+```
+
+Expected:
+
+```
+HR      105000
+IT      215000
+Sales   40000
+```
+
+## 43. AverageNumberValue
+
+Average value of all numbers found. Input: `/lab/num/numbers.txt`.
+
+```bash
+hdfs dfs -rm -r -f /lab/avgnum-out
+hadoop jar build/jars/AverageNumberValue.jar AverageNumberValue /lab/num /lab/avgnum-out
+hdfs dfs -cat /lab/avgnum-out/part-r-00000
+```
+
+Expected: `average number value 199.5` ((200 + 95 + 3 + 500) / 4)
+
+## 44. MaxNumber
+
+The largest number in the file. Input: `/lab/num/numbers.txt`.
+
+```bash
+hdfs dfs -rm -r -f /lab/maxnum-out
+hadoop jar build/jars/MaxNumber.jar MaxNumber /lab/num /lab/maxnum-out
+hdfs dfs -cat /lab/maxnum-out/part-r-00000
+```
+
+Expected: `max number 500`
+
+## 45. NumbersPerLine
+
+How many numbers appear in each line. Input: `/lab/num/numbers.txt`.
+
+```bash
+hdfs dfs -rm -r -f /lab/npl-out
+hadoop jar build/jars/NumbersPerLine.jar NumbersPerLine /lab/num /lab/npl-out
+hdfs dfs -cat /lab/npl-out/part-r-00000
+```
+
+Expected: `line 0 3` and `line 37 1` (offsets vary with the file)
+
+## 46. WordsEndingWithS
+
+Counts each word that ends with the letter `s`. Input: `/lab/input`.
+
+```bash
+hdfs dfs -rm -r -f /lab/wsx-out
+hadoop jar build/jars/WordsEndingWithS.jar WordsEndingWithS /lab/input /lab/wsx-out
+hdfs dfs -cat /lab/wsx-out/part-r-00000
+```
+
+Expected: `applications 1`, `is 1`, `powers 1`
+
+## 47. ConsonantEndingWordCount
+
+Counts words that end with a consonant. Input: `/lab/input`.
+
+```bash
+hdfs dfs -rm -r -f /lab/cew-out
+hadoop jar build/jars/ConsonantEndingWordCount.jar ConsonantEndingWordCount /lab/input /lab/cew-out
+hdfs dfs -cat /lab/cew-out/part-r-00000
+```
+
+Expected: `words ending with consonant 10`
+
+## 48. WordsWithTwoVowels
+
+Counts words that contain at least two vowels. Input: `/lab/input`.
+
+```bash
+hdfs dfs -rm -r -f /lab/wtv-out
+hadoop jar build/jars/WordsWithTwoVowels.jar WordsWithTwoVowels /lab/input /lab/wtv-out
+hdfs dfs -cat /lab/wtv-out/part-r-00000
+```
+
+Expected: `words with two or more vowels 9`
+
+## 49. TotalWordsPerFile
+
+Total number of words per input file. Input: `/lab/multi/`.
+
+```bash
+hdfs dfs -rm -r -f /lab/twpf-out
+hadoop jar build/jars/TotalWordsPerFile.jar TotalWordsPerFile /lab/multi /lab/twpf-out
+hdfs dfs -cat /lab/twpf-out/part-r-00000
+```
+
+Expected:
+
+```
+a.txt  2
+b.txt  2
+```
+
+## 50. LinesPerFile
+
+Number of lines in each input file. Input: `/lab/multi/`.
+
+```bash
+hdfs dfs -rm -r -f /lab/lpf-out
+hadoop jar build/jars/LinesPerFile.jar LinesPerFile /lab/multi /lab/lpf-out
+hdfs dfs -cat /lab/lpf-out/part-r-00000
+```
+
+Expected:
+
+```
+a.txt  1
+b.txt  1
 ```
 
 ---
