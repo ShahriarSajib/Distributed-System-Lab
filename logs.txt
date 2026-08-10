@@ -1,0 +1,6 @@
+INFO Server started
+ERROR Disk full
+WARN High memory
+INFO User logged in
+ERROR Connection reset
+FATAL Crash

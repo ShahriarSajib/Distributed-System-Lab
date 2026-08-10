@@ -501,7 +501,7 @@ hadoop jar build/jars/SumNumbers.jar SumNumbers /lab/num /lab/sumnum-out
 hdfs dfs -cat /lab/sumnum-out/part-r-00000
 ```
 
-Expected: `sum of numbers 798` (200 + 95 + 3 + 500)
+Expected: `sum of numbers 708` (200 + 5 + 3 + 500)
 
 ## 32. TopFrequentWords
 

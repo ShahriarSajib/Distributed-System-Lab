@@ -1,0 +1,3 @@
+alice@gmail.com bought 10 items
+bob@yahoo.com and carol@gmail.com met
+bob@yahoo.com

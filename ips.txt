@@ -1,0 +1,4 @@
+192.168.1.1 GET /home
+10.0.0.2 POST /login
+192.168.1.1 GET /about
+172.16.0.5 GET /
