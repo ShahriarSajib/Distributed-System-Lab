@@ -73,6 +73,8 @@ cat > ips.txt <<EOF
 172.16.0.5 GET /
 EOF
 
+# bigtext.txt (500 words) is already included in the repo - no need to create it.
+
 mkdir -p multi
 echo "one two" > multi/a.txt
 echo "two three" > multi/b.txt
@@ -81,7 +83,7 @@ echo "two three" > multi/b.txt
 ### 3. Upload the inputs to HDFS
 
 ```bash
-hdfs dfs -mkdir -p /lab/input /lab/num /lab/temp /lab/salary /lab/email /lab/log /lab/ip /lab/multi
+hdfs dfs -mkdir -p /lab/input /lab/num /lab/temp /lab/salary /lab/email /lab/log /lab/ip /lab/multi /lab/bigtext
 hdfs dfs -put -f input.txt /lab/input/
 hdfs dfs -put -f numbers.txt /lab/num/
 hdfs dfs -put -f temp.csv /lab/temp/
@@ -90,6 +92,7 @@ hdfs dfs -put -f emails.txt /lab/email/
 hdfs dfs -put -f logs.txt /lab/log/
 hdfs dfs -put -f ips.txt /lab/ip/
 hdfs dfs -put -f multi/a.txt multi/b.txt /lab/multi/
+hdfs dfs -put -f bigtext.txt /lab/bigtext/
 ```
 
 ### 4. Build the jars
@@ -505,7 +508,7 @@ Expected: `sum of numbers 708` (200 + 5 + 3 + 500)
 
 ## 32. TopFrequentWords
 
-The 5 most frequent words.
+The 5 most frequent words. Optionally pass a number as a 3rd argument to change N (default is 5).
 
 ```bash
 hdfs dfs -rm -r -f /lab/top-out
@@ -514,6 +517,36 @@ hdfs dfs -cat /lab/top-out/part-r-00000
 ```
 
 Expected: `a 1`, `applications 1`, `big 1`, `computing 1`, `data 1`
+
+## 32a. TopFrequentWords on a 500-word dataset
+
+The top N most frequent words in a large text file. Input: `/lab/bigtext/bigtext.txt` (exactly 500 words). Use the 3rd argument to pick N.
+
+```bash
+hdfs dfs -rm -r -f /lab/topbig-out
+hadoop jar build/jars/TopFrequentWords.jar TopFrequentWords /lab/bigtext /lab/topbig-out 5
+hdfs dfs -cat /lab/topbig-out/part-r-00000
+```
+
+Expected:
+
+```
+hadoop    40
+data      35
+mapreduce 30
+big       28
+analysis  25
+```
+
+Try a different N:
+
+```bash
+hdfs dfs -rm -r -f /lab/topbig10-out
+hadoop jar build/jars/TopFrequentWords.jar TopFrequentWords /lab/bigtext /lab/topbig10-out 10
+hdfs dfs -cat /lab/topbig10-out/part-r-00000
+```
+
+Expected: the 10 most frequent words (adds `processing 22`, `system 20`, `large 18`, `file 16`, `cluster 14`).
 
 ---
 

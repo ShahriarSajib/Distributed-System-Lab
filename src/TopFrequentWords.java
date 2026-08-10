@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class TopFrequentWords {
-    private static final int TOP_N = 5;
+    private static int TOP_N = 5;
 
     public static class WordMapper
             extends Mapper<LongWritable, Text, Text, IntWritable> {
@@ -69,9 +69,13 @@ public class TopFrequentWords {
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
-            System.err.println("Usage: TopFrequentWords <input> <output>");
+        if (args.length < 2 || args.length > 3) {
+            System.err.println("Usage: TopFrequentWords <input> <output> [topN]");
             System.exit(2);
+        }
+
+        if (args.length == 3) {
+            TOP_N = Integer.parseInt(args[2]);
         }
 
         Configuration conf = new Configuration();
